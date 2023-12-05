@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import type { Todo, TodosListProps } from "../typesData";
 import { TodoItem } from "./TodoItem";
 import { getTodos } from "../utils";
-import { useEffect } from "react";
 
 export const TodosList: React.FC<TodosListProps> = () => {
 
@@ -14,8 +13,6 @@ export const TodosList: React.FC<TodosListProps> = () => {
             .then(r => r),
         refetchOnWindowFocus: true
     })
-
-    useEffect(() => {}, [data])
     
     if (isLoading) {
         return (

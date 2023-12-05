@@ -1,9 +1,10 @@
 import { FormEvent, useCallback } from "react";
 import { addNewTodo } from "../utils";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "../typesData";
 
 export const Form = () => {
+    const queryClient = useQueryClient();
 
     /*
         Here I decided not to useState because there is no need to store the state and re-render the component
@@ -11,7 +12,10 @@ export const Form = () => {
 
     const todosMutation = useMutation({
         mutationKey: ['todos'],
-        mutationFn: (newTodo: Todo) => addNewTodo(newTodo)
+        mutationFn: (newTodo: Todo) => addNewTodo(newTodo),
+        onSuccess: () => queryClient.invalidateQueries({
+            queryKey: ["todos"]
+        })
     })
 
     const onSubmitHandler = useCallback((event: FormEvent<HTMLFormElement>) => {
