@@ -1,20 +1,51 @@
-import type { Todo } from "../App";
+import { useQuery } from "@tanstack/react-query";
+
+import type { Todo, TodosListProps } from "../typesData";
 import { TodoItem } from "./TodoItem";
 
-export type TodosListProps = {
-    todos: Todo[];
+const getTodos = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/todos');
+
+        if (!response.ok) {
+            throw new Error(
+                `Status ${response.status}: ${response.statusText}`
+            )
+        }
+
+        return response.json();
+    } catch (error) {
+        throw new Error(error as string)
+    }
 }
 
-export const TodosList: React.FC<TodosListProps> = (
-    { todos } :
-    { todos: Todo[] }
-    ) => {
+export const TodosList: React.FC<TodosListProps> = () => {
+
+    const {data, error, isLoading} = useQuery({
+        queryKey: ['todos'],
+        queryFn: () => 
+            getTodos()
+            .then(r => r),
+        refetchOnWindowFocus: true
+    })
+    
+    if (isLoading) {
+        return (
+            <div>Loading data...</div>
+        )
+    }
+
+    if (error) {
+        <div>
+            Something went wrong: {error.message}
+        </div>
+    }
 
     return (
         <div>
             <ul>
                 {
-                    todos.map((item, index) => (
+                    data.map((item: Todo, index: number) => (
                         <TodoItem key={item.id} todo={item} className={index % 2 ? undefined : 'bg-yellow-50'}/>
                     ))
                 }

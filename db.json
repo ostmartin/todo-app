@@ -4,6 +4,16 @@
       "id": 1,
       "content": "Create the ToDo app using TypeScript, React, React Query, Tailwind CSS",
       "checked": false
+    },
+    {
+      "id": 2,
+      "content": "Create the ToDo app using TypeScript, React, React Query, Tailwind CSS",
+      "checked": false
+    },
+    {
+      "id": 3,
+      "content": "Create the ToDo app using TypeScript, React, React Query, Tailwind CSS",
+      "checked": false
     }
   ]
 }
