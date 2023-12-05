@@ -2,22 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { Todo, TodosListProps } from "../typesData";
 import { TodoItem } from "./TodoItem";
-
-const getTodos = async () => {
-    try {
-        const response = await fetch('http://localhost:3000/todos');
-
-        if (!response.ok) {
-            throw new Error(
-                `Status ${response.status}: ${response.statusText}`
-            )
-        }
-
-        return response.json();
-    } catch (error) {
-        throw new Error(error as string)
-    }
-}
+import { getTodos } from "../utils";
+import { useEffect } from "react";
 
 export const TodosList: React.FC<TodosListProps> = () => {
 
@@ -28,6 +14,8 @@ export const TodosList: React.FC<TodosListProps> = () => {
             .then(r => r),
         refetchOnWindowFocus: true
     })
+
+    useEffect(() => {}, [data])
     
     if (isLoading) {
         return (

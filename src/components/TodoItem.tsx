@@ -1,4 +1,4 @@
-import type { Todo } from "../App";
+import type { Todo } from "../typesData";
 
 type TodoItemProps = {
     todo: Todo;
@@ -13,7 +13,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo, className }: { todo: T
             <div className="flex flex-row p-4 gap-3 items-center">
                 <input type="checkbox" name="check" defaultChecked={todo.checked} />
                 <div>{todo.content}</div>
-                <div className="flex flex-row gap-2">
+                <div className="flex flex-row gap-2 ms-auto">
                     <button className="bg-green-500 px-2 rounded-lg text-gray-700">Edit</button>
                     <button className="bg-red-500 px-2 rounded-lg text-white">Remove</button>
                 </div>
