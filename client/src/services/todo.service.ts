@@ -1,6 +1,6 @@
 import type { Todo } from "../typesData";
 
-const URL = 'http://localhost:3000/todos';
+const URL = 'http://localhost:3001/todos';
 
 //Get an up-to-date list of tasks
 export const getAllTodos = async () => {
@@ -69,6 +69,7 @@ export const updateTodo = async (updatedTodo: Todo) => {
 //Delete an existing task
 export const deleteTodo = async (todoId: number) => {
     try {
+        console.log(todoId)
         const response = await fetch(`${URL}/${todoId}`, {
         method: "DELETE",
     });
@@ -77,14 +78,14 @@ export const deleteTodo = async (todoId: number) => {
             throw new Error(`Status ${response.status}: ${response.statusText}`);
         }
 
-      return response.json();
+      return true;
     } catch (error) {
         console.log(error);
         throw new Error('There was an error while deleting the task. Try again later');
     }
 };
 
-export const setTodoCompeted = async (todo: Todo) => {
+export const setTodoCompleted = async (todo: Todo) => {
     try {
         const response = await fetch(`${URL}/${todo.id}`, {
             method: "PUT",
