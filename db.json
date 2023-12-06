@@ -1,38 +1,8 @@
 {
   "todos": [
     {
-      "id": 1,
-      "content": "Create the ToDo app using TypeScript, React, React Query, Tailwind CSS",
-      "checked": false
-    },
-    {
-      "id": 1701784308222,
-      "content": "My new todo",
-      "checked": false
-    },
-    {
-      "id": 1701786082655,
-      "content": "Another todo",
-      "checked": false
-    },
-    {
-      "id": 1701786101048,
-      "content": "Next todo",
-      "checked": false
-    },
-    {
-      "id": 1701786334749,
-      "content": "And another next todo",
-      "checked": false
-    },
-    {
-      "id": 1701786871810,
-      "content": "Invalidate",
-      "checked": false
-    },
-    {
-      "id": 1701845207566,
-      "content": "For header",
+      "id": 1701851111824,
+      "content": "Implement check action",
       "checked": false
     }
   ]

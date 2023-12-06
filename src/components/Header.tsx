@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTodos } from "../utils";
+import { getAllTodos } from "../services/todo.service";
 
 export const Header: React.FC = () => {
     /*
@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
     const { data } = useQuery({
         queryKey: ['todos'],
         queryFn: () => 
-            getTodos()
+            getAllTodos()
             .then(r => r)
     })
 

@@ -1,17 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import type { Todo, TodosListProps } from "../typesData";
+import type { Todo } from "../typesData";
 import { TodoItem } from "./TodoItem";
-import { getTodos } from "../utils";
 
-export const TodosList: React.FC<TodosListProps> = () => {
+export const TodosList: React.FC = () => {
 
-    const {data, error, isLoading} = useQuery({
-        queryKey: ['todos'],
-        queryFn: () => 
-            getTodos()
-            .then(r => r)
-    })
+    const { data, error, isLoading } = useQuery({ queryKey: ['todos'] })
     
     if (isLoading) {
         return (
@@ -24,12 +18,12 @@ export const TodosList: React.FC<TodosListProps> = () => {
             <ul>
                 {
                     !error ?
-                        data.map((item: Todo, index: number) => (
+                        (Array.isArray(data) ? data.map((item: Todo, index: number) => (
                             <TodoItem key={item.id} todo={item} className={index % 2 ? undefined : 'bg-yellow-50'}/>
-                        )) :
-                        <div>
-                            {error.message}
-                        </div>
+                        )) : null) 
+                        :   <div>
+                                {error.message}
+                            </div>
                 }
             </ul>
         </div>

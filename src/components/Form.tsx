@@ -1,37 +1,28 @@
-import { FormEvent, useCallback } from "react";
-import { addNewTodo } from "../utils";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { SyntheticEvent, useCallback } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { Todo } from "../typesData";
 
 export const Form = () => {
-    const queryClient = useQueryClient();
-
     /*
         Here I decided not to useState because there is no need to store the state and re-render the component
     */
 
-    const {error, isError, isPending, mutate} = useMutation({
-        mutationKey: ['todos'],
-        mutationFn: (newTodo: Todo) => addNewTodo(newTodo),
-        onSuccess: () => queryClient.invalidateQueries({
-            queryKey: ["todos"]
-        })
-    })
+    const {error, isError, isPending, mutate} = useMutation<boolean, Error, Todo, void>({ mutationKey: ['addTodo'] })
 
-    const onSubmitHandler = useCallback((event: FormEvent<HTMLFormElement>) => {
+    const onSubmitHandler = useCallback((event: SyntheticEvent) => {
         event.preventDefault();
 
         const form = event.target as HTMLFormElement;
 
         const formData = new FormData(form);
 
-        mutate({
-
+        const newTodo: Todo = {
             id: Date.now(), //Date.now() because it is sufficient in this case
-
             content: Object.fromEntries(formData.entries()).content as string,
             checked: false
-        });
+        }
+
+        mutate(newTodo);
 
         form.reset();
     }, []);
