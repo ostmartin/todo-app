@@ -12,7 +12,8 @@ export const getTodos = async () => {
 
         return response.json();
     } catch (error) {
-        throw new Error('Unexpected error: ' + error)
+        console.log(error);
+        throw new Error('There was an error while retrieving the task list. Try again later');
     }
 }
 
@@ -32,8 +33,9 @@ export const addNewTodo = async (newTodo: Todo) => {
 
         return response.json();
     } catch (error) {
+        console.log(error)
         throw new Error(
-            'Unexpected error: ' + error
+            'There was an error while creating a new task. Try again later'
         )
     }
 }

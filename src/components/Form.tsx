@@ -10,7 +10,7 @@ export const Form = () => {
         Here I decided not to useState because there is no need to store the state and re-render the component
     */
 
-    const todosMutation = useMutation({
+    const {error, isError, isPending, mutate} = useMutation({
         mutationKey: ['todos'],
         mutationFn: (newTodo: Todo) => addNewTodo(newTodo),
         onSuccess: () => queryClient.invalidateQueries({
@@ -25,8 +25,10 @@ export const Form = () => {
 
         const formData = new FormData(form);
 
-        todosMutation.mutate({
-            id: Date.now(),
+        mutate({
+
+            id: Date.now(), //Date.now() because it is sufficient in this case
+
             content: Object.fromEntries(formData.entries()).content as string,
             checked: false
         });
@@ -35,17 +37,21 @@ export const Form = () => {
     }, []);
 
     return (
-        <div className="border-[1px] border-gray-300 w-full">
-            <form onSubmit={(event) => onSubmitHandler(event)} className="rounded-sm overflow-hidden w-full flex">
+        <div className=" w-full">
+            <form onSubmit={(event) => onSubmitHandler(event)} className="rounded-sm overflow-hidden w-full flex border-[1px] border-gray-300">
                 <input name="content" type="text" placeholder="Enter todo here" className="p-2 grow border-none" required/>
                 <button 
                     type="submit"
                     className="bg-blue-600 text-white p-2"
-                    disabled={todosMutation.isPending}
+                    disabled={isPending}
                 >
-                    {todosMutation.isPending ? "Please wait..." : "Submit"}
+                    {isPending ? "Please wait..." : "Submit"}
                 </button>
             </form>
+            {
+                isError ? 
+                <p className="text-center py-2 text-red-600">{error.message}</p> : null
+            }
         </div>
     )
 }

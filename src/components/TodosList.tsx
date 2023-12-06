@@ -10,8 +10,7 @@ export const TodosList: React.FC<TodosListProps> = () => {
         queryKey: ['todos'],
         queryFn: () => 
             getTodos()
-            .then(r => r),
-        refetchOnWindowFocus: true
+            .then(r => r)
     })
     
     if (isLoading) {
@@ -20,19 +19,17 @@ export const TodosList: React.FC<TodosListProps> = () => {
         )
     }
 
-    if (error) {
-        <div>
-            Something went wrong: {error.message}
-        </div>
-    }
-
     return (
         <div>
             <ul>
                 {
-                    data.map((item: Todo, index: number) => (
-                        <TodoItem key={item.id} todo={item} className={index % 2 ? undefined : 'bg-yellow-50'}/>
-                    ))
+                    !error ?
+                        data.map((item: Todo, index: number) => (
+                            <TodoItem key={item.id} todo={item} className={index % 2 ? undefined : 'bg-yellow-50'}/>
+                        )) :
+                        <div>
+                            {error.message}
+                        </div>
                 }
             </ul>
         </div>

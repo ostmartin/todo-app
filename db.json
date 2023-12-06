@@ -6,16 +6,6 @@
       "checked": false
     },
     {
-      "id": 2,
-      "content": "Create the ToDo app using TypeScript, React, React Query, Tailwind CSS",
-      "checked": false
-    },
-    {
-      "id": 3,
-      "content": "Create the ToDo app using TypeScript, React, React Query, Tailwind CSS",
-      "checked": false
-    },
-    {
       "id": 1701784308222,
       "content": "My new todo",
       "checked": false
@@ -38,6 +28,11 @@
     {
       "id": 1701786871810,
       "content": "Invalidate",
+      "checked": false
+    },
+    {
+      "id": 1701845207566,
+      "content": "For header",
       "checked": false
     }
   ]
