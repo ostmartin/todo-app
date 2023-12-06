@@ -9,8 +9,12 @@ type OnSubmitHandlerProps = {
     currentData?: Todo
 }
 
-export const useSubmit = () => {
-    const onSubmitHandler = useCallback(({event, mutate, action, currentData} : OnSubmitHandlerProps) => {
+type UseSubmit<T> = () => {
+    onSubmitHandler: (props: T) => void;
+};
+
+export const useSubmit: UseSubmit<OnSubmitHandlerProps> = () => {
+    const onSubmitHandler = useCallback(({event, mutate, action, currentData} : OnSubmitHandlerProps): void => {
         event.preventDefault();
     
         const form = event.target as HTMLFormElement;

@@ -9,6 +9,7 @@ const queryClient = new QueryClient({
         }
     }
 });
+
 /*------------------------------------------------------*/
 //Defaults for queries and mutations
 
