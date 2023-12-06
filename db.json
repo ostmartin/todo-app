@@ -1,9 +1,3 @@
 {
-  "todos": [
-    {
-      "id": 1701851111824,
-      "content": "Implement check action",
-      "checked": false
-    }
-  ]
+  "todos": []
 }

@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import { addNewTodo, getAllTodos, deleteTodo } from "../services/todo.service";
+import { addNewTodo, getAllTodos, deleteTodo, setTodoCompeted } from "../services/todo.service";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -12,21 +12,28 @@ const queryClient = new QueryClient({
 
 //Defaults for queries and mutations
 
-queryClient.setQueryDefaults(['todos'], {
+queryClient.setQueryDefaults(['getAllTodos'], {
     queryFn: getAllTodos
 })
 
 queryClient.setMutationDefaults(['addTodo'], {
     mutationFn: addNewTodo,
     onSuccess: () => queryClient.invalidateQueries({
-        queryKey: ["todos"]
+        queryKey: ['getAllTodos']
     })
 })
 
 queryClient.setMutationDefaults(['deleteTodo'], {
     mutationFn: deleteTodo,
     onSuccess: () => queryClient.invalidateQueries({
-        queryKey: ["todos"]
+        queryKey: ['getAllTodos']
+    })
+})
+
+queryClient.setMutationDefaults(['setTodoCompleted'], {
+    mutationFn: setTodoCompeted,
+    onSuccess: () => queryClient.invalidateQueries({
+        queryKey: ['getAllTodos']
     })
 })
 

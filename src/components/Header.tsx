@@ -3,13 +3,13 @@ import { getAllTodos } from "../services/todo.service";
 
 export const Header: React.FC = () => {
     /*
-        Here I useQery as in the TodosList component,
+        Here I useQuery as in the TodosList component,
         so that I don't need to feed the App props through the Content component,
         although it's also possible to do so
 
     */
     const { data } = useQuery({
-        queryKey: ['todos'],
+        queryKey: ['getAllTodos'],
         queryFn: () => 
             getAllTodos()
             .then(r => r)

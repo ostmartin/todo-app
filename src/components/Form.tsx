@@ -19,7 +19,7 @@ export const Form = () => {
         const newTodo: Todo = {
             id: Date.now(), //Date.now() because it is sufficient in this case
             content: Object.fromEntries(formData.entries()).content as string,
-            checked: false
+            completed: false
         }
 
         mutate(newTodo);

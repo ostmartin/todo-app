@@ -2,6 +2,7 @@ import type { Todo } from "../typesData";
 
 const URL = 'http://localhost:3000/todos';
 
+//Get an up-to-date list of tasks
 export const getAllTodos = async () => {
     try {
         const response = await fetch(URL);
@@ -19,6 +20,7 @@ export const getAllTodos = async () => {
     }
 }
 
+//Create new todo
 export const addNewTodo = async (newTodo: Todo) => {
     try {
         const response = await fetch(URL, {
@@ -33,7 +35,7 @@ export const addNewTodo = async (newTodo: Todo) => {
             throw new Error(`Status ${response.status}: ${response.statusText}`)
         }
 
-        return true;
+        return response.json();
     } catch (error) {
         console.log(error)
         throw new Error(
@@ -42,12 +44,13 @@ export const addNewTodo = async (newTodo: Todo) => {
     }
 }
 
+//Edit an existing task
 export const updateTodo = async (updatedTodo: Todo) => {
     try {
         const response = await fetch(`${URL}/${updatedTodo.id}`, {
             method: "PUT",
             headers: {
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(updatedTodo),
         });
@@ -63,7 +66,8 @@ export const updateTodo = async (updatedTodo: Todo) => {
     }
 };
 
-export const deleteTodo = async (todoId: string | number) => {
+//Delete an existing task
+export const deleteTodo = async (todoId: number) => {
     try {
         const response = await fetch(`${URL}/${todoId}`, {
         method: "DELETE",
@@ -73,9 +77,29 @@ export const deleteTodo = async (todoId: string | number) => {
             throw new Error(`Status ${response.status}: ${response.statusText}`);
         }
 
-      return true; // Возвращаем true, чтобы указать успешное удаление
+      return response.json();
     } catch (error) {
         console.log(error);
         throw new Error('There was an error while deleting the task. Try again later');
     }
 };
+
+export const setTodoCompeted = async (todo: Todo) => {
+    try {
+        const response = await fetch(`${URL}/${todo.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ 
+                ...todo,
+                completed: !todo.completed
+            }),
+        });
+
+        return response.json();
+    } catch (error) {
+        console.log(error);
+        throw new Error('There was an error while updating the task. Try again later');
+    }
+}

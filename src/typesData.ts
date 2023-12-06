@@ -1,7 +1,7 @@
 export type Todo = {
-    id: string | number;
+    id: number;
     content: string;
-    checked: boolean;
+    completed: boolean;
 }
 
 export type TodosListProps = {
