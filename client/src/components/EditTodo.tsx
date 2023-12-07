@@ -1,18 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { Todo } from "../typesData";
 import { useSubmit } from "../hooks/useSubmit";
-
-type EditTodoProps ={
-    todo: Todo,
-    onEditHandler: () => void,
-    status: boolean
-}
-
-type ModalWindowProps = {
-    isOpen: boolean;
-    todo: Todo;
-    closeModal: () => void
-}
+import type { EditTodoProps, ModalWindowProps } from "../typesData";
 
 export const EditTodo = ({todo, onEditHandler, status}: EditTodoProps) => {
     return (
@@ -40,12 +29,13 @@ const ModalWindow = ({ isOpen, todo, closeModal }: ModalWindowProps) => {
         <>
             {isOpen ? 
                 <div className="absolute w-screen h-screen top-0 left-0">
-                    <div className="absolute w-[400px] h-40 bg-slate-400 border-2 border-green-300 rounded-md left-1/2 -translate-x-1/2 top-20" >
+                    <div className="absolute w-[400px] h-40 bg-white border-2 border-green-300 rounded-md left-1/2 -translate-x-1/2 top-20" >
+                        <button className="absolute right-1 top-1 px-2 bg-red-300 rounded-full" onClick={closeModal}>X</button>
                         <form
                             onSubmit={onCloseModal}
                             className="flex flex-col justify-center items-center h-full gap-7">
-                                <input name="content" type="text" defaultValue={todo.content} className="p-2 outline-none focus:border-4 border-green-900 rounded-md"/>
-                                <button type="submit" className="bg-green-500 px-2 rounded-lg text-gray-700">Save</button>
+                                <input name="content" type="text" defaultValue={todo.content} className="p-2 outline-none border-2 border-green-800 rounded-md focus:border-blue-500 focus:scale-105"/>
+                                <button type="submit" className="bg-green-500 px-2 rounded-lg text-gray-700 hover:scale-110">Save</button>
                         </form>
                     </div>
                 </div> : null}
