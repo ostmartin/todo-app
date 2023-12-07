@@ -1,12 +1,7 @@
-import type { Todo } from "../typesData";
+import type { Todo, TodoItemProps } from "../typesData";
 import { useMutation } from "@tanstack/react-query";
 import { EditTodo } from "./EditTodo";
 import { useState } from "react";
-
-type TodoItemProps = {
-    todo: Todo;
-    className?: string;
-}
 
 export const TodoItem: React.FC<TodoItemProps> = ({ todo, className }: TodoItemProps) => {
     const [isTodoEditing, setIsTodoEditing] = useState<boolean>(false);
