@@ -1,16 +1,8 @@
 import { useCallback } from "react";
-import { Todo } from "../typesData";
-import { UseMutateFunction } from "@tanstack/react-query";
+import { Todo, OnSubmitHandlerProps, UseSubmit } from "../typesData";
 
-type OnSubmitHandlerProps = {
-    event: React.FormEvent<HTMLFormElement>,
-    mutate: UseMutateFunction<boolean, Error, Todo, void>,
-    action: 'edit' | 'addNew',
-    currentData?: Todo
-}
-
-export const useSubmit = () => {
-    const onSubmitHandler = useCallback(({event, mutate, action, currentData} : OnSubmitHandlerProps) => {
+export const useSubmit: UseSubmit<OnSubmitHandlerProps> = () => {
+    const onSubmitHandler = useCallback(({event, mutate, action, currentData} : OnSubmitHandlerProps): void => {
         event.preventDefault();
     
         const form = event.target as HTMLFormElement;

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useSubmit } from "../hooks/useSubmit";
-import { Todo } from "../typesData";
+import type { Todo } from "../typesData";
 
 export const Form = () => {
     /*

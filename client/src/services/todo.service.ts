@@ -1,4 +1,5 @@
 import type { Todo } from "../typesData";
+import { MutationFunction } from "@tanstack/react-query";
 
 const URL = 'http://localhost:3001/todos';
 
@@ -21,14 +22,14 @@ export const getAllTodos = async () => {
 }
 
 //Create new todo
-export const addNewTodo = async (newTodo: Todo) => {
+export const addNewTodo: MutationFunction<boolean, Todo> = async (variables) => {
     try {
         const response = await fetch(URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(newTodo)
+            body: JSON.stringify(variables)
         })
 
         if (!response.ok) {
@@ -45,14 +46,14 @@ export const addNewTodo = async (newTodo: Todo) => {
 }
 
 //Edit an existing task
-export const updateTodo = async (updatedTodo: Todo) => {
+export const updateTodo: MutationFunction<boolean, Todo> = async (variables) => {
     try {
-        const response = await fetch(`${URL}/${updatedTodo.id}`, {
+        const response = await fetch(`${URL}/${variables.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(updatedTodo),
+            body: JSON.stringify(variables),
         });
   
         if (!response.ok) {
@@ -67,10 +68,9 @@ export const updateTodo = async (updatedTodo: Todo) => {
 };
 
 //Delete an existing task
-export const deleteTodo = async (todoId: number) => {
+export const deleteTodo: MutationFunction<boolean, string | number> = async (variables) => {
     try {
-        console.log(todoId)
-        const response = await fetch(`${URL}/${todoId}`, {
+        const response = await fetch(`${URL}/${variables}`, {
         method: "DELETE",
     });
 
@@ -85,16 +85,17 @@ export const deleteTodo = async (todoId: number) => {
     }
 };
 
-export const setTodoCompleted = async (todo: Todo) => {
+//Mark a todo as completed and vice versa
+export const setTodoCompleted: MutationFunction<boolean, Todo> = async (variables) => {
     try {
-        const response = await fetch(`${URL}/${todo.id}`, {
+        const response = await fetch(`${URL}/${variables.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
-                ...todo,
-                completed: !todo.completed
+                ...variables,
+                completed: !variables.completed
             }),
         });
 
