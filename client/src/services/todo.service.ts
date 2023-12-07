@@ -68,7 +68,7 @@ export const updateTodo: MutationFunction<boolean, Todo> = async (variables) => 
 };
 
 //Delete an existing task
-export const deleteTodo: MutationFunction<boolean, number> = async (variables: number) => {
+export const deleteTodo: MutationFunction<boolean, string | number> = async (variables) => {
     try {
         const response = await fetch(`${URL}/${variables}`, {
         method: "DELETE",
