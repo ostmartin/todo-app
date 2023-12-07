@@ -66,7 +66,6 @@ export const deleteTodo = async (req, res) => {
         const todoId = req.params.id;
         
         data.todos = data.todos.filter(todo => todo.id != todoId);
-        console.log(data)
 
         await fs.writeFile(dbPath, JSON.stringify(data));
 
